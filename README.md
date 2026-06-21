@@ -1,4 +1,4 @@
-# Pace Park Group — Notes
+# Pace Park Group — Blog
 
 Static blog published with GitHub Pages at **https://blog.paceparkgroup.com**.
 
