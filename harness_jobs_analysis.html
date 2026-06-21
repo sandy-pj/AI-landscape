@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>=Harness Roles — JD &amp; Concept Analysis · PacePark AI Research</title>
+<style>
+  :root{
+    --bg:#ffffff;--txt:#1a1a1a;--muted:#6b6b6b;--line:#e7e5e0;--accent:#ff6719;--panel:#faf9f7;--panel2:#f4f2ee;
+    --research:#0c8599;--eng:#7048e8;--pm:#e8590c;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.7;}
+
+  .topbar{border-bottom:1px solid var(--line);background:rgba(255,255,255,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20;}
+  .topbar .inner{max-width:900px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;}
+  .topbar .brand{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--txt);text-decoration:none;}
+  .topbar .brand span{color:var(--accent);}
+  .topbar a.home{color:var(--muted);font-size:14px;text-decoration:none;font-weight:500;}
+  .topbar a.home:hover{color:var(--txt);}
+
+  .wrap{max-width:900px;margin:0 auto;padding:54px 22px 40px;}
+  .post-title{font-family:var(--serif);font-size:42px;font-weight:800;letter-spacing:-.6px;line-height:1.18;margin:0 0 12px;}
+  .post-meta{color:var(--muted);font-size:14px;font-weight:600;margin:0 0 22px;}
+  .pills{margin:0 0 28px;}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);color:#444;padding:5px 12px;border-radius:20px;margin:0 7px 8px 0;font-size:12.5px;font-weight:600;}
+  .pill b{color:var(--accent);}
+
+  h2{font-family:var(--serif);font-size:28px;font-weight:800;letter-spacing:-.3px;margin:48px 0 8px;}
+  h3{font-family:var(--serif);font-size:19px;font-weight:800;margin:0 0 8px;}
+  p{font-size:16.5px;color:#2a2a2a;margin:0 0 16px;}
+  .lead{font-family:var(--serif);font-size:20px;line-height:1.7;color:#242424;}
+
+  .grid{display:grid;gap:16px;margin-top:10px;}
+  .cols3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+  .cols2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+  .card p{font-size:14.5px;color:#444;margin:0 0 10px;}
+  .card ul,.card ol{font-size:14.5px;color:#3a3a3a;margin:8px 0 0;padding-left:20px;}
+  .card li{margin:6px 0;}
+  .card b{color:#1a1a1a;}
+
+  .tag{font-size:12px;background:#f0eee9;color:#555;padding:4px 10px;border-radius:20px;display:inline-block;margin:4px 5px 0 0;font-weight:600;}
+  .tag.research{background:#0c85991a;color:var(--research);}
+  .tag.eng{background:#7048e81a;color:var(--eng);}
+  .tag.pm{background:#e859091a;color:var(--pm);}
+
+  .diagram{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel);color:#2a2a2a;border:1px solid var(--line);border-radius:14px;padding:20px 22px;overflow:auto;white-space:pre;font-size:13.5px;line-height:1.6;margin-top:10px;}
+  .result-line{color:var(--accent);font-weight:700;}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 16px;}
+  .tab{border:1px solid var(--line);background:#fff;color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:13.5px;font-weight:600;font-family:var(--sans);}
+  .tab:hover{border-color:var(--accent);color:var(--txt);}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .concept{border-left:3px solid var(--accent);border-radius:0;padding:2px 0 2px 16px;margin:16px 0;font-size:16px;color:#2a2a2a;}
+  .concept b{color:#111;}
+
+  .callout{background:#fef6e7;border:1px solid #f3d9a0;border-radius:14px;padding:18px 22px;margin-top:14px;}
+  .callout h2{margin-top:0;}
+  .callout p{font-size:15px;color:#5a4a26;margin:0;}
+
+  .fit{border-left:3px solid var(--research);}
+  table{border-collapse:collapse;width:100%;margin-top:14px;font-size:14px;}
+  th,td{border-bottom:1px solid var(--line);padding:12px 12px;text-align:left;vertical-align:top;}
+  th{background:var(--panel2);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:#555;}
+
+  footer{max-width:900px;margin:0 auto;padding:34px 22px 80px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);}
+  footer h2{font-size:18px;margin:0 0 10px;}
+  footer ul{padding-left:18px;margin:0;}
+  footer li{margin:6px 0;}
+  a{color:var(--accent);}
+  @media(max-width:600px){.post-title{font-size:31px}.lead{font-size:18px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">PacePark <span>AI Research</span></a>
+    <a class="home" href="index.html">← Home</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1 class="post-title"> Harness Roles: JD Analysis &amp; Concept Explainer</h1>
+  <div class="post-meta">PacePark AI Research · Role analysis</div>
+
+  <p class="lead">Analysis of three roles — <b>Harness Researcher</b>, <b>Harness Engineer</b>, and <b>Harness Product Manager</b>. </p>
+
+  <div class="pills">
+    <span class="pill"><b>Core idea:</b> Model + Harness = Agent</span>
+    <span class="pill">Coding agents</span>
+    <span class="pill">Agent runtime</span>
+    <span class="pill">Context / tools / feedback loop</span>
+  </div>
+
+  <h2>Executive summary</h2>
+  <p>These roles are not about "wire harness." In AI, <b>harness</b> means the runtime/product layer that turns a language model into an agent that can take actions: read files, edit code, run terminal commands, call tools, manage context, observe errors, and iterate until the task is done.</p>
+  <p>The strategic signal: Companies hiring appears to be inventing in building a first-party ai agents, eg. coding agent, often discussed publicly as " Code" or "Code Harness," intended to compete with products such as Claude Code, Cursor, Codex, Manus, Hermes, and OpenClaw.</p>
+
+  <h2>How the three roles differ</h2>
+  <div class="grid cols3">
+    <div class="card">
+      <h3>1. Harness Researcher</h3>
+      <p><b>Mission:</b> discover which harness designs make the model act more reliably.</p>
+      <p><b>Likely work:</b> agent loop experiments, benchmark design, failure analysis, prompt/tool/context ablations, data collection for agent behavior.</p>
+      <span class="tag research">research</span><span class="tag research">benchmarks</span><span class="tag research">agent behavior</span>
+    </div>
+    <div class="card">
+      <h3>2. Harness Engineer</h3>
+      <p><b>Mission:</b> build the actual runtime system.</p>
+      <p><b>Likely work:</b> file I/O, shell execution, tool-calling APIs, sandboxing, context compaction, test feedback, memory, traces, reliability and UX plumbing.</p>
+      <span class="tag eng">engineering</span><span class="tag eng">runtime</span><span class="tag eng">tools</span>
+    </div>
+    <div class="card">
+      <h3>3. Harness Product Manager</h3>
+      <p><b>Mission:</b> define what the agent should become and how it competes.</p>
+      <p><b>Likely work:</b> user scenarios, competitive analysis, model capability requirements, evaluation criteria, roadmap, GTM, and product quality loop.</p>
+      <span class="tag pm">product</span><span class="tag pm">strategy</span><span class="tag pm">evaluation</span>
+    </div>
+  </div>
+
+  <h2>Concept map</h2>
+  <div class="diagram">Language Model
+  └── Harness / Agent Runtime
+        ├── System prompt &amp; policy
+        ├── Context management
+        │     ├── long-context selection
+        │     ├── summarization / compaction
+        │     └── prompt-cache stability
+        ├── Tool invocation
+        │     ├── read/write files
+        │     ├── terminal / shell execution
+        │     ├── browser / web / APIs
+        │     └── MCP servers
+        ├── Feedback loop
+        │     ├── tests / lints / compiler errors
+        │     ├── runtime observations
+        │     └── self-correction
+        ├── Memory and task state
+        ├── Safety / sandboxing / permissions
+        └── Product UX
+              ├── IDE, CLI, desktop, web
+              ├── human-in-the-loop review
+              └── evaluation dashboard
+
+<span class="result-line">Result: Model + Harness = Agent</span></div>
+
+  <h2>Interactive role tabs</h2>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('researcher',this)">Researcher</button>
+    <button class="tab" onclick="showTab('engineer',this)">Engineer</button>
+    <button class="tab" onclick="showTab('pm',this)">Product Manager</button>
+  </div>
+  <div id="researcher" class="panel active card">
+    <h3>Harness Researcher — what to understand</h3>
+    <ul>
+      <li><b>Agent evaluation:</b> how to measure whether an agent completes real tasks, not just produces good text.</li>
+      <li><b>Failure taxonomy:</b> classify failures into model capability limits vs harness failures such as missing context, wrong tool definition, bad error feedback, or poor planning.</li>
+      <li><b>Ablation testing:</b> change one variable at a time — prompt, tool schema, memory policy, context compaction — then measure performance.</li>
+      <li><b>Data flywheel:</b> convert failed agent traces into training/evaluation data for future model and harness improvements.</li>
+    </ul>
+  </div>
+  <div id="engineer" class="panel card">
+    <h3>Harness Engineer — what to understand</h3>
+    <ul>
+      <li><b>Agent loop:</b> observe state → reason → call tool → observe result → update plan → repeat.</li>
+      <li><b>Tool invocation:</b> the model emits structured calls to tools such as file search, shell, browser, git, package managers, or APIs.</li>
+      <li><b>Context management:</b> choose what history, files, logs, and task notes stay in the prompt when context grows too large.</li>
+      <li><b>Execution safety:</b> sandbox code, limit destructive commands, request permission for sensitive actions, and preserve audit logs.</li>
+      <li><b>Observability:</b> store traces so the team can debug why the agent failed.</li>
+    </ul>
+  </div>
+  <div id="pm" class="panel card">
+    <h3>Harness Product Manager — what to understand</h3>
+    <ul>
+      <li><b>Competitive set:</b> Claude Code, Cursor, Codex, Manus, Hermes, OpenClaw.</li>
+      <li><b>User scenarios:</b> coding, debugging, repo onboarding, test generation, refactoring, research, automation workflows.</li>
+      <li><b>Quality metrics:</b> task success rate, time-to-completion, tool-call accuracy, rollback rate, user trust, cost per completed task.</li>
+      <li><b>Roadmap tradeoff:</b> IDE plugin vs CLI vs desktop agent; deep coding focus vs general-purpose agent; open vs closed ecosystem.</li>
+      <li><b>Moat:</b> a strong harness creates switching costs through workflows, skills, memory, tool integrations, and team-specific context.</li>
+    </ul>
+  </div>
+
+  <h2>Key concepts explained</h2>
+  <div class="card">
+    <div class="concept"><b>Harness / Agent Runtime:</b> the software layer around the model that decides how the model receives context, calls tools, executes actions, sees feedback, and continues working.</div>
+    <div class="concept"><b>Model + Harness = Agent:</b> a model alone predicts text. A harness gives it hands, memory, tools, permissions, and a loop, turning it into an agent that can complete tasks.</div>
+    <div class="concept"><b>Tool Use:</b> the model calls external functions such as search, file read/write, code execution, database query, or browser control.</div>
+    <div class="concept"><b>Context Management:</b> the agent must decide what to keep in its limited prompt window: user request, relevant code, previous actions, errors, plan, and constraints.</div>
+    <div class="concept"><b>File Reading/Writing:</b> for coding agents, reading repository files and safely editing them is central. The hard part is selecting the right files and avoiding unintended changes.</div>
+    <div class="concept"><b>Terminal Execution:</b> the agent can run commands, tests, package installs, grep, git diff, or scripts. This enables verification but introduces safety and environment complexity.</div>
+    <div class="concept"><b>Test Feedback Loop:</b> a coding agent should run tests, read failures, form a hypothesis, patch code, and re-run tests. This loop is a major difference between chatbots and coding agents.</div>
+    <div class="concept"><b>Prompt / Tool Definition Optimization:</b> small changes to system prompts and tool schemas can materially change agent behavior because the model repeatedly relies on them during long tasks.</div>
+    <div class="concept"><b>Prompt Caching:</b> reusing stable prompt prefixes can lower inference cost and latency. Harness design affects cache hit rate.</div>
+    <div class="concept"><b>MCP:</b> Model Context Protocol, a common way to connect agents to external tools and data sources. It can make tool integrations more standardized.</div>
+    <div class="concept"><b>Agent Observability:</b> recording traces of prompts, tool calls, outputs, errors, costs, and decisions so failures can be debugged and improved.</div>
+    <div class="concept"><b>Benchmarking:</b> measuring performance on realistic tasks such as terminal tasks, repo changes, coding challenges, or workflow completion, not just static Q&amp;A.</div>
+  </div>
+
+  <h2>Why this matters strategically</h2>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Why model companies move downstream</h3>
+      <p>As frontier models converge and token prices compress, the product/runtime layer becomes the interface where users feel quality. A good harness can make the same model appear much smarter by giving it better tools, better context, and better feedback.</p>
+    </div>
+    <div class="card">
+      <h3>Why  needs this</h3>
+      <p> has strong model capabilities, but a first-party agent platform can create developer habit, workflow lock-in, and enterprise value beyond raw API calls.</p>
+    </div>
+  </div>
+
+  <h2>Where infra and PM skills map in</h2>
+  <div class="card fit">
+    <p>One of the strongest backgrounds for these roles is the <b>intersection of agent product and inference infrastructure</b> — distributed inference, accelerator constraints, capacity, cost, latency, and enterprise workloads. These roles add a new layer on top: how that infrastructure turns into agentic user experience.</p>
+    <table>
+      <tr><th>Adjacent strength</th><th>Maps to Harness role need</th></tr>
+      <tr><td>Accelerated compute / accelerator capacity</td><td>Understand cost, latency, throughput, and scaling of long-running agents.</td></tr>
+      <tr><td>Product strategy and enterprise customer thinking</td><td>Useful for Harness PM: roadmap, scenarios, adoption, pricing, and platform moat.</td></tr>
+      <tr><td>Distributed inference knowledge</td><td>Important for agent latency, tool-call loops, context window cost, and serving economics.</td></tr>
+      <tr><td>Familiarity with LLM architecture</td><td>Useful for researcher/PM collaboration with model and harness engineers.</td></tr>
+    </table>
+  </div>
+
+  <h2>Knowledge checklist</h2>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Must-know products</h3>
+      <p style="margin-top:6px"><span class="tag">Claude Code</span><span class="tag">Cursor</span><span class="tag">Codex CLI</span><span class="tag">Manus</span><span class="tag">OpenClaw</span><span class="tag">Cline</span><span class="tag">OpenCode</span></p>
+    </div>
+    <div class="card">
+      <h3>Interesting questions</h3>
+      <ol>
+        <li>Design a coding agent harness from scratch.</li>
+        <li>How would you evaluate agent success?</li>
+        <li>How do you reduce cost for long-running agents?</li>
+        <li>How should the product handle unsafe terminal commands?</li>
+        <li>Why does harness quality change benchmark scores?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><a href="index.html">← Back to PacePark AI Research</a></p>
+</footer>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
