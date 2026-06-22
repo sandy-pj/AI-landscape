@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What's Next for Agentic Coding Products? · PacePark AI Research</title>
+<style>
+  :root{
+    --bg:#ffffff;--panel:#faf9f7;--panel2:#f4f2ee;--line:#e7e5e0;
+    --txt:#1a1a1a;--muted:#6b6b6b;--accent:#ff6719;
+    --good:#2f9e44;--warn:#b8860b;--risk:#e03131;--alt:#7048e8;
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--txt);line-height:1.7}
+  a{color:var(--accent)}
+
+  .topbar{border-bottom:1px solid var(--line);background:rgba(255,255,255,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+  .topbar .inner{max-width:980px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+  .topbar .brand{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--txt);text-decoration:none}
+  .topbar .brand span{color:var(--accent)}
+  .topbar a.home{color:var(--muted);font-size:14px;text-decoration:none;font-weight:500}
+  .topbar a.home:hover{color:var(--txt)}
+
+  .wrap{max-width:980px;margin:0 auto;padding:54px 22px 40px}
+  .hero{padding:0 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  h1{font-family:var(--serif);font-size:46px;line-height:1.12;margin:14px 0 14px;letter-spacing:-.5px;font-weight:800}
+  h2{font-family:var(--serif);font-size:28px;margin:48px 0 12px;letter-spacing:-.3px;font-weight:800}
+  h3{font-family:var(--serif);font-size:18px;margin:0 0 8px;font-weight:800}
+  .subtitle{font-family:var(--serif);font-size:20px;max-width:780px;color:#242424;margin:0;line-height:1.65}
+  .pill{display:inline-flex;gap:8px;align-items:center;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:#555;background:var(--panel2);font-size:12.5px;font-weight:600;margin-bottom:6px}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}
+  .kicker{color:var(--accent);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+  .big{font-family:var(--serif);font-size:22px;line-height:1.25;font-weight:800;letter-spacing:-.2px;margin:0 0 8px}
+  .muted{color:#444;font-size:14.5px}
+  .card p{font-size:14.5px}
+  .tag{display:inline-block;border:1px solid var(--line);padding:4px 10px;border-radius:999px;margin:4px 5px 0 0;font-size:12px;color:#555;background:#fff;font-weight:600}
+
+  .timeline{margin-top:18px}
+  .step{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+  .era{font-family:var(--serif);font-weight:800;color:var(--accent);font-size:16px}
+  .step strong{color:#1a1a1a}
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+  th,td{border-bottom:1px solid var(--line);padding:12px 12px;text-align:left;vertical-align:top}
+  th{color:#555;background:var(--panel2);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  td{color:#333}
+  .score{font-weight:800}.good{color:var(--good)}.warn{color:var(--warn)}.risk{color:var(--risk)}
+
+  details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--panel);margin:12px 0}
+  summary{cursor:pointer;font-family:var(--serif);font-weight:800;color:#1a1a1a;font-size:16px}
+  details p{font-size:15px;color:#333;margin:10px 0 0}
+
+  .callout{border-left:3px solid var(--accent);padding:16px 20px;background:var(--panel2);border-radius:8px;margin:20px 0;font-size:16px}
+  .callout strong{color:#1a1a1a}
+
+  .footer{margin-top:54px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:22px}
+  .footer strong{color:#1a1a1a}
+  .small{font-size:13px}.source-list li{margin:8px 0}.nowrap{white-space:nowrap}
+  @media(max-width:850px){.span4,.span6,.span8{grid-column:span 12}.step{grid-template-columns:1fr}.wrap{padding:34px 16px 60px}h1{font-size:34px}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">PacePark <span>AI Research</span></a>
+    <a class="home" href="index.html">← Home</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <h1>What's Next for Agentic Coding Products?</h1>
+    <p class="subtitle">The category is moving from "AI helps me type" to "AI operates a software delivery loop." The next winners will not merely have better code completion. They will own the workflow layer where tasks are delegated, parallelized, reviewed, governed, and shipped.</p>
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+      <span style="font-weight:600;color:#1a1a1a;font-size:15px">PacePark AI Research</span>
+      <span style="color:#b3b3b3">·</span>
+      <span style="color:#757575;font-size:15px">Jun 21, 2026</span>
+    </div>
+  </section>
+
+  <h2>Executive thesis</h2>
+  <div class="grid">
+    <div class="card span4"><div class="kicker">1 · Product shift</div><p class="big">From copilot to coworker</p><p class="muted">Coding agents now read repos, edit multiple files, run tests, open PRs, and ask for approvals. GitHub's Copilot coding agent runs in GitHub Actions and submits PRs; OpenAI Codex runs tasks in cloud sandboxes; Claude Code operates across full projects with explicit permission boundaries.</p></div>
+    <div class="card span4"><div class="kicker">2 · UX shift</div><p class="big">From chat to control plane</p><p class="muted">The interface is becoming a command center: worktrees, queues, plans, diffs, traces, tests, approvals, and mobile/Slack handoffs. The best UX will feel less like prompting and more like managing a small engineering team.</p></div>
+    <div class="card span4"><div class="kicker">3 · Business shift</div><p class="big">From seats to usage + governance</p><p class="muted">Long-running agents consume far more tokens and compute than autocomplete. Expect metered pricing, enterprise budgets, policy controls, audit logs, and ROI dashboards to matter as much as model quality.</p></div>
+  </div>
+
+  <h2>Why now?</h2>
+  <div class="callout"><strong>Agentic coding became feasible because four things converged:</strong> stronger coding/reasoning models, cheap-enough inference, repo-scale context tooling, and safe execution environments where agents can run commands and tests without touching production directly.</div>
+  <div class="timeline">
+    <div class="step"><div class="era">2018–2022</div><div><strong>Autocomplete era.</strong> The product surface is inline completion. Value is speed while the human still drives every step.</div></div>
+    <div class="step"><div class="era">2023–2024</div><div><strong>Chat-in-IDE era.</strong> Developers ask questions, generate snippets, and make localized edits. Context retrieval becomes a product differentiator.</div></div>
+    <div class="step"><div class="era">2025</div><div><strong>Agent mode era.</strong> Tools begin planning, editing multiple files, running terminal commands, and iterating until tests pass. OpenAI introduced Codex as a cloud software engineering agent in May 2025; GitHub introduced an enterprise-ready Copilot coding agent the same month.</div></div>
+    <div class="step"><div class="era">2026+</div><div><strong>Orchestration era.</strong> Developers supervise many agents across tasks, branches, worktrees, CI, review, and deployment. The bottleneck moves from "writing code" to "specifying, verifying, and governing work."</div></div>
+  </div>
+
+  <h2>Current product map</h2>
+  <table>
+    <thead><tr><th>Category</th><th>Representative products</th><th>Core job-to-be-done</th><th>Likely advantage</th><th>Main weakness</th></tr></thead>
+    <tbody>
+      <tr><td>AI-native IDEs</td><td>Cursor, Windsurf</td><td>Keep developers inside a familiar editor while agents plan, edit, and review code.</td><td>Fast daily workflow adoption; deep local context; habit formation.</td><td>Enterprise governance and large-scale async orchestration may lag platform-native tools.</td></tr>
+      <tr><td>CLI / local agents</td><td>Claude Code, OpenAI Codex CLI, Aider</td><td>Let power users operate agents inside their existing terminal, repo, and scripts.</td><td>Composable, developer-trusted, easy to automate.</td><td>Less accessible for non-technical or manager workflows.</td></tr>
+      <tr><td>Cloud async coding agents</td><td>OpenAI Codex, GitHub Copilot coding agent, Devin</td><td>Delegate issues/features/bugs to sandboxed workers that produce PRs.</td><td>Parallelism, background work, enterprise deployment, auditability.</td><td>Requires strong repo setup, test quality, and review discipline.</td></tr>
+      <tr><td>Dev platform-native agents</td><td>GitHub, GitLab, Atlassian-style SDLC integrations</td><td>Turn tickets and issues directly into reviewed code changes.</td><td>Already own source control, CI, PRs, permissions, and enterprise accounts.</td><td>May feel less delightful than AI-native tools for individual developers.</td></tr>
+      <tr><td>Vertical agents</td><td>Testing, migration, security, infra, data/ML agents</td><td>Automate specific painful workflows: upgrade frameworks, fix CVEs, write tests, migrate APIs.</td><td>Clear ROI and easier trust boundary.</td><td>Narrower TAM unless bundled into broader platforms.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What happens next: 10 predictions</h2>
+  <div class="grid">
+    <div class="card span6"><div class="kicker">Prediction 1</div><h3>"Background agents" become the default mode for non-trivial work</h3><p>Simple completion stays, but meaningful value shifts to agents that can work for minutes or hours, use worktrees, run tests, and return a PR. OpenAI's Codex product direction already emphasizes parallel cloud environments and multi-agent workflows.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 2</div><h3>The winning UX looks like Linear + GitHub + CI + Chat</h3><p>Users will not want a blank prompt box. They will want task queues, dependency graphs, run logs, diffs, test status, confidence scores, and approvals.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 3</div><h3>Spec quality becomes the new bottleneck</h3><p>As code generation improves, the scarce skill becomes writing clear requirements, acceptance tests, design constraints, and rollback criteria. Product managers and tech leads become higher leverage.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 4</div><h3>Agents will specialize by SDLC phase</h3><p>Expect planner agents, implementation agents, reviewer agents, test-generation agents, security agents, migration agents, and release agents. One general agent will be convenient; coordinated specialist agents will be more reliable.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 5</div><h3>Enterprise control planes become mandatory</h3><p>Permission scopes, command allowlists, data boundaries, secrets handling, audit trails, and policy-as-code will matter for adoption. Anthropic explicitly highlights explicit permission before file modification or command execution in Claude Code.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 6</div><h3>Pricing shifts toward metered compute</h3><p>Agentic coding is expensive because agents read, plan, call tools, test, fail, retry, and review. Seat pricing alone will struggle; credits, token metering, budget caps, and model routing will become standard.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 7</div><h3>Repo readiness becomes a product category</h3><p>Agents perform best when repos have clean docs, tests, build scripts, coding conventions, and an AGENTS.md-style instruction file. Products will sell "agent readiness" checks and automatic repo hardening.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 8</div><h3>Code review becomes the highest-value wedge</h3><p>Review is where trust, quality, security, and organizational standards meet. Tools that can explain diffs, find regressions, generate tests, and enforce policy will be easier to justify than pure code generation.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 9</div><h3>Non-engineers become legitimate software requesters</h3><p>PMs, analysts, designers, and ops teams will delegate internal tools, dashboards, scripts, and prototypes. The constraint is not whether code can be written; it is whether the system can safely scope, review, and maintain it.</p></div>
+    <div class="card span6"><div class="kicker">Prediction 10</div><h3>Model differentiation narrows; workflow data widens</h3><p>Model quality will remain important, but durable advantage comes from proprietary workflow data: which edits pass review, which tests catch issues, which tasks stall, and which repo patterns predict failure.</p></div>
+  </div>
+
+  <h2>Where the product gaps are</h2>
+  <table>
+    <thead><tr><th>Gap</th><th>Why it matters</th><th>Potential product</th><th>Buyer</th></tr></thead>
+    <tbody>
+      <tr><td>Agent evaluation</td><td>Teams need to know whether agent output is safe and useful, not just impressive.</td><td>Benchmarks on private repos, task replay, regression scoring, review-quality metrics.</td><td>VP Eng, platform teams</td></tr>
+      <tr><td>Spec-to-test pipeline</td><td>Ambiguous tasks create bad code. Acceptance tests anchor agents.</td><td>Tool that turns PRDs/tickets into implementation plans, test plans, and agent-ready tasks.</td><td>PM + engineering leads</td></tr>
+      <tr><td>Enterprise policy layer</td><td>Agents need access boundaries for commands, files, secrets, data, and deployment.</td><td>Agent firewall: permissions, audit logs, allowlists, sandbox policies, compliance reports.</td><td>CISO, platform eng</td></tr>
+      <tr><td>Legacy migration agents</td><td>Enterprises have huge codebases with upgrade debt.</td><td>Autonomous migration factory for Java, Python, React, infra, APIs, tests.</td><td>Enterprise IT</td></tr>
+      <tr><td>Agent observability</td><td>Long-running agents fail in hidden ways: bad assumptions, loops, token waste, flaky tests.</td><td>Traces, cost attribution, context heatmaps, tool-call replay, stuck-task detection.</td><td>Developer productivity teams</td></tr>
+      <tr><td>Human review workflow</td><td>Humans still own shipping decisions.</td><td>Review cockpit: risk score, change summary, test diff, security flags, one-click rollback.</td><td>Tech leads</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Competitive positioning</h2>
+  <div class="grid">
+    <div class="card span4"><div class="kicker">GitHub / Microsoft</div><p class="big">Owns the SDLC surface</p><p class="muted">Best positioned for enterprise because GitHub already owns repos, PRs, Actions, permissions, and Copilot distribution. The risk is a less magical individual developer experience.</p></div>
+    <div class="card span4"><div class="kicker">OpenAI Codex</div><p class="big">Agent command center</p><p class="muted">Strong direction around cloud sandboxes, parallel work, desktop/mobile surfaces, skills, SDKs, and enterprise deployments. Its challenge is proving trust and ROI at scale.</p></div>
+    <div class="card span4"><div class="kicker">Anthropic Claude Code</div><p class="big">Power-user trust</p><p class="muted">Terminal-first, repo-aware, strong coding reputation, and explicit permission model. It can become the expert developer's agent substrate and SDK foundation.</p></div>
+    <div class="card span4"><div class="kicker">Cursor</div><p class="big">Best daily IDE habit</p><p class="muted">Cursor's wedge is the developer's daily environment: planning, building, review, and context in one editor. The next battle is background work plus enterprise controls.</p></div>
+    <div class="card span4"><div class="kicker">Devin / Cognition</div><p class="big">Autonomous engineer narrative</p><p class="muted">Strong brand around delegating work to agents. The challenge is converting demos into repeatable, reviewable, economical enterprise throughput.</p></div>
+    <div class="card span4"><div class="kicker">Startups</div><p class="big">Win by narrowing</p><p class="muted">The best startup opportunities are vertical: testing, migration, security remediation, repo readiness, review automation, and agent observability.</p></div>
+  </div>
+
+  <h2>Product strategy: what to build</h2>
+  <details open><summary>For an AI-native coding IDE</summary><p>Build a seamless continuum from autocomplete → chat edit → agent plan → background branch → PR. Add agent memory, repo rules, deterministic task replay, and first-class review. The core KPI should shift from "accepted completions" to "merged, low-regression changes per developer-week."</p></details>
+  <details><summary>For an enterprise platform</summary><p>Make agents boring, observable, and governable. Prioritize SSO, RBAC, audit logs, data residency, model routing, permission policies, budget controls, secure sandboxes, and integration with tickets/CI/security scanners.</p></details>
+  <details><summary>For a startup</summary><p>Avoid competing head-on with Cursor, GitHub, OpenAI, or Anthropic on general coding. Pick one painful workflow with measurable ROI: dependency migration, flaky test repair, security patch PRs, test generation, code review, or internal-tool generation for non-engineers.</p></details>
+  <details><summary>For product managers</summary><p>The PM job becomes more technical, not less. PMs who can write agent-ready specs, acceptance tests, telemetry requirements, and risk boundaries will 10x engineering leverage. The PM becomes the "task architect" for human-agent teams.</p></details>
+
+  <h2>2026–2028 roadmap</h2>
+  <table>
+    <thead><tr><th>Timeframe</th><th>Likely product milestone</th><th>What changes for teams</th></tr></thead>
+    <tbody>
+      <tr><td class="nowrap">0–6 months</td><td>Agent modes become standard in IDEs and cloud coding tools.</td><td>Developers learn to decompose work into agent-sized tasks and review more code than they personally write.</td></tr>
+      <tr><td class="nowrap">6–18 months</td><td>Multi-agent workflows, worktrees, mobile approvals, Slack/Jira/GitHub integrations become normal.</td><td>Teams create agent queues for bugs, tests, cleanup, migrations, and internal tools.</td></tr>
+      <tr><td class="nowrap">18–36 months</td><td>Enterprise agent control planes mature.</td><td>Agent use becomes governed like cloud infrastructure: policies, budgets, logs, environments, compliance.</td></tr>
+      <tr><td class="nowrap">3+ years</td><td>Software organizations reorganize around human-agent throughput.</td><td>Smaller teams ship more; review, architecture, product judgment, and system ownership become more valuable.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Bottom line</h2>
+  <div class="card span12"><p class="big">The next great coding product is not just a smarter editor. It is an operating system for software work.</p><p class="muted">It will combine model intelligence, repo context, secure execution, work orchestration, review, testing, and enterprise governance. The most defensible products will own the loop from task → plan → code → test → review → merge → learn.</p></div>
+
+  <div class="footer">
+    <strong>Sources used</strong>
+    <ul class="source-list">
+      <li>OpenAI, "Introducing Codex" — cloud-based software engineering agent, May 16, 2025: <a href="https://openai.com/index/introducing-codex/">openai.com/index/introducing-codex/</a></li>
+      <li>OpenAI Codex product page — command center, worktrees, cloud environments, multi-agent workflows: <a href="https://openai.com/codex/">openai.com/codex/</a></li>
+      <li>OpenAI Codex app docs — desktop experience, worktree support, automations, Git functionality: <a href="https://developers.openai.com/codex/app">developers.openai.com/codex/app</a></li>
+      <li>OpenAI Codex cloud docs — background and parallel cloud tasks: <a href="https://developers.openai.com/codex/cloud">developers.openai.com/codex/cloud</a></li>
+      <li>OpenAI Codex GA announcement — Slack integration, SDK, admin tools, enterprise use cases: <a href="https://openai.com/index/codex-now-generally-available/">openai.com/index/codex-now-generally-available/</a></li>
+      <li>GitHub, "GitHub Copilot: Meet the new coding agent" — task assignment, GitHub Actions, PR submission: <a href="https://github.blog/news-insights/product-news/github-copilot-meet-the-new-coding-agent/">github.blog/.../github-copilot-meet-the-new-coding-agent/</a></li>
+      <li>GitHub press release — enterprise-ready Copilot coding agent and adoption stats: <a href="https://github.com/newsroom/press-releases/coding-agent-for-github-copilot">github.com/newsroom/press-releases/coding-agent-for-github-copilot</a></li>
+      <li>Anthropic Claude Code product page — project-wide agentic coding and explicit permissions: <a href="https://www.anthropic.com/product/claude-code">anthropic.com/product/claude-code</a></li>
+      <li>Anthropic Claude 4 announcement — coding and long-running agent workflow claims: <a href="https://www.anthropic.com/news/claude-4">anthropic.com/news/claude-4</a></li>
+      <li>Cursor product page — IDE, CLI, web, mobile agent surfaces: <a href="https://cursor.com/product">cursor.com/product</a></li>
+      <li>Cursor, "Best practices for coding with agents" — agents running for hours, multi-file refactors, test iteration: <a href="https://cursor.com/blog/agent-best-practices">cursor.com/blog/agent-best-practices</a></li>
+      <li>Devin Desktop product page — team of coding agents and IDE positioning: <a href="https://devin.ai/desktop/">devin.ai/desktop/</a></li>
+    </ul>
+    <p class="small">Prepared as a product strategy memo. Some market claims are directional forecasts, not facts.</p>
+    <p style="margin-top:16px"><a href="index.html">← Back to PacePark AI Research</a></p>
+  </div>
+</div>
+</body>
+</html>
