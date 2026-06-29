@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Regression to Transformers: Three Stages of Machine Learning</title>
+<style>
+  :root { --accent: #ff6719; --ink: #1a1a1a; --muted: #6b6b6b; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    background: #fdfdfb;
+    line-height: 1.7;
+    margin: 0;
+    padding: 48px 20px 96px;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  h1 {
+    font-size: 2.1rem; line-height: 1.25; margin: 0 0 .25em;
+    font-weight: 700;
+  }
+  .meta { color: var(--muted); font-style: italic; margin: 0 0 2.5em; }
+  h2 {
+    font-size: 1.4rem; margin: 2em 0 .5em; padding-bottom: .2em;
+    border-bottom: 2px solid var(--accent);
+  }
+  h3 { font-size: 1.15rem; margin: 1.6em 0 .4em; }
+  p, li { font-size: 1.05rem; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(255,103,25,.35); }
+  a:hover { border-bottom-color: var(--accent); }
+  hr { border: none; border-top: 2px solid var(--accent); margin: 2.5em 0; opacity: .5; }
+  blockquote {
+    margin: 1.5em 0; padding: .6em 1.2em; border-left: 4px solid var(--accent);
+    background: #fff7f2; color: #333; font-style: italic;
+  }
+  .callout {
+    background: #fff7f2; border: 1px solid #ffd9c2; border-radius: 8px;
+    padding: 1em 1.2em; margin: 1.5em 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: .98rem; }
+  th, td { text-align: left; padding: .55em .7em; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { color: var(--accent); border-bottom: 2px solid var(--accent); }
+  code {
+    font-family: ui-monospace, Menlo, monospace; font-size: .9em;
+    background: #f3f1ec; padding: .1em .4em; border-radius: 4px;
+  }
+  sup a { border-bottom: none; font-size: .75em; }
+  ol.refs li { font-size: .95rem; margin-bottom: .5em; }
+  .verified { color: #1a7f4b; font-style: normal; font-weight: 600; }
+  footer { margin-top: 4em; color: var(--muted); font-size: .9rem; font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>From Regression to Transformers</h1>
+    <p class="meta">June 28, 2026 · Three stages in the evolution of machine learning — and why each beat the last</p>
+
+    <p>The evolution of machine learning is in three stages: <strong>classic regression</strong>, then <strong>recommender systems</strong>, then <strong>transformer-based large language models</strong>. Each stage crossed a real conceptual boundary that the previous stage couldn't, and the whole arc has a single throughline: <em>machines doing more of the work that humans used to do by hand.</em></p>
+
+    <p><strong>To kick off the story next, here's an attention question.</strong><span style="background-color: rgb(255, 247, 242);">&nbsp;"Do recommender systems "used attention already — transformer architecture, yes or no?" The honest answer is </span><strong>both, and the timeline is the whole point. </strong>Please read on<span style="background-color: rgb(255, 247, 242);">.</span></p><div class="callout"><ul>
+        <li><strong>Classic recommenders (the famous ones — collaborative filtering, matrix factorization, the Netflix Prize era, ~1994–2010): NO attention, no transformers.</strong> They predate the idea entirely. They work with a simple dot product of learned vectors.</li>
+        <li><strong>Modern deep recommenders (~2017–2019 onward): YES.</strong> Alibaba's Deep Interest Network (2017) added attention; SASRec (2018), BERT4Rec (2019), and Behavior Sequence Transformer (2019) used full self-attention / transformer blocks.</li>
+      </ul>
+      The striking part: recommendation systems adopted self-attention <em>almost as fast as NLP did</em>. The transformer paper was 2017; SASRec shipped a transformer-style recommender in 2018. So recommender systems weren't a stage <em>before</em> attention — they straddle the line, and were one of attention's earliest industrial adopters.
+    </div>
+
+    <hr>
+
+    <h2>Stage 1 — Classic Regression</h2>
+
+    <p>The first era of practical ML was built on statistical models with an explicit formula and a cheap way to fit it. At the center sits the <strong>generalized linear model</strong> family: linear regression predicts a number as a weighted sum of features; logistic regression pushes that sum through a sigmoid to predict a probability; Nelder &amp; Wedderburn unified these under GLMs in 1972.<sup><a href="#r1">1</a></sup> Each coefficient is human-readable — it <em>is</em> the per-feature effect — which is exactly why these models ran the world's prediction systems for decades.</p>
+
+    <p>Alongside the linear family grew the <strong>tree and margin methods</strong>: decision trees (CART, 1984), random forests (Breiman, 2001),<sup><a href="#r2">2</a></sup> support vector machines (Cortes &amp; Vapnik, 1995),<sup><a href="#r3">3</a></sup> and the gradient-boosted tree ensembles that still dominate tabular ML today — <strong>XGBoost</strong> (Chen &amp; Guestrin, KDD 2016),<sup><a href="#r4">4</a></sup> LightGBM (2017), CatBoost (2017–18). These capture nonlinearities and feature interactions that linear models can't.</p>
+
+    <p>But the decisive ingredient of the whole era wasn't the model — it was <strong>manual feature engineering</strong>. Because the models are simple, virtually all the task-specific intelligence was injected by humans: log transforms, bucketing, hand-coded cross terms (user × item, age × income), one-hot encodings, rolling-window aggregations. The famous industrial systems — Google's click-prediction pipeline (logistic regression over billions of sparse features)<sup><a href="#r5">5</a></sup> and Facebook's ad system (boosted trees feeding logistic regression)<sup><a href="#r6">6</a></sup> — won on <em>features and engineering</em>, not model complexity.</p>
+
+    <p>These methods solved tabular prediction superbly — click-through rate, credit scoring, fraud, churn, insurance pricing — and still do. Their limits define the boundary the next stages crossed:</p>
+    <ul>
+      <li><strong>Linearity / independence assumptions</strong> — a linear model can't see an interaction unless a human hand-codes it.</li>
+      <li><strong>No sequence or order</strong> — nothing in this family natively models "what you did just before."</li>
+      <li><strong>High-cardinality categoricals break it</strong> — encoding millions of user/item IDs as one-hot columns produces astronomically wide, ~99.99%-sparse matrices, with one isolated weight per ID and no way to share signal between similar entities.</li>
+      <li><strong>No representation learning</strong> — the model can't learn features from raw data. A human must supply them. <em>This is the gap everything after Stage 1 closes.</em></li>
+    </ul>
+
+    <h2>Stage 2 — Recommender Systems (how they actually work)</h2>
+
+    <p>Recommendation looks deceptively like a regression problem ("predict the rating user U gives item I"), but the signal lives somewhere regression can't reach: in the <em>identity</em> of a specific user interacting with a specific item, across millions of each. Recommender systems were the first mainstream technology built to learn from that.</p>
+
+    <h3>Collaborative filtering: "people like you liked this"</h3>
+    <p>The first generation was <strong>collaborative filtering (CF)</strong>, which uses <em>only</em> the user–item interaction matrix — no hand-built features at all. <strong>User-based CF</strong> (GroupLens, 1994)<sup><a href="#r7">7</a></sup> finds users whose rating histories correlate with yours and averages their opinions. <strong>Item-based CF</strong> (Sarwar et al., 2001; deployed at scale by Amazon, 2003)<sup><a href="#r8">8</a></sup> instead computes item-to-item similarity — "people who bought this also bought that" — which proved more stable and precomputable, so it scaled.</p>
+
+    <h3>Matrix factorization: learning the latent space</h3>
+    <p>The conceptual leap came with the <strong>Netflix Prize</strong> (announced 2006, $1M, won 2009), which pushed the field from neighborhood heuristics to <strong>matrix factorization (MF)</strong>.<sup><a href="#r9">9</a></sup> The idea is elegant. Take the giant, mostly-empty ratings matrix R (users × items) and approximate it as the product of two thin matrices:</p>
+    <ul>
+      <li>a <strong>user matrix</strong> — every user gets a short dense vector (say 50–200 numbers), their <em>embedding</em>;</li>
+      <li>an <strong>item matrix</strong> — every item gets a vector of the same size.</li>
+    </ul>
+    <p>The predicted rating is simply the <strong>dot product of the user vector and the item vector</strong> (plus a few bias terms). The model is trained — by stochastic gradient descent or alternating least squares — so those dot products reconstruct the ratings you <em>did</em> observe. The magic is what the dimensions become: the model <em>discovers</em>, on its own, latent factors like "how much action," "how serious," "how mainstream." Nobody labels those axes. Two users with similar taste end up with nearby vectors; so do two similar movies. Similarity becomes geometry.</p>
+
+    <p><strong>Factorization Machines</strong> (Rendle, 2010)<sup><a href="#r10">10</a></sup> generalized this beyond pure user × item: they model all pairwise interactions among arbitrary sparse features (user ID, item ID, time, genre…), where each interaction's strength is again a dot product of learned embeddings — so the model gives sensible estimates even for feature pairs it has barely ever seen, because the embeddings are <em>shared</em>.</p>
+
+    <h3>Then deep, then attention</h3>
+    <p>The deep-learning wave (2016+) kept the embedding tables but <b>replaced the dot product with neural networks</b> and richer inputs: Google's <strong>Wide &amp; Deep</strong> (2016), the <strong>YouTube</strong> deep recommender (2016), <strong>DeepFM</strong> and <strong>Deep &amp; Cross</strong> (2017). Then came the attention era you asked about: <strong>Deep Interest Network</strong> (Alibaba, 2017) learned <em>which</em> of your past behaviors matter for the item being scored, instead of averaging them all equally; and <strong>SASRec</strong> (2018), <strong>BERT4Rec</strong> (2019), and <strong>Behavior Sequence Transformer</strong> (2019) brought full self-attention to model the <em>ordered sequence</em> of your behavior.<sup><a href="#r11">11</a></sup></p>
+
+    <h2>Why recommenders beat plain regression</h2>
+
+    <p>This is the first comparison you wanted. The difference is not "recsys is a better-tuned regression." It's a different kind of model that learns something regression structurally cannot.</p>
+
+    <table>
+      <tbody><tr><th>Dimension</th><th>Classic regression</th><th>Recommender systems</th></tr>
+      <tr><td>Features</td><td>Human-engineered by hand</td><td><strong>Learned embeddings</strong> — the model discovers latent factors itself</td></tr>
+      <tr><td>Sparse high-cardinality IDs</td><td>One-hot blow-up; one isolated weight per ID; ~99.99% sparse</td><td>Two thin embedding tables; parameters grow <em>linearly</em>, signal shared across similar entities</td></tr>
+      <tr><td>Personalization</td><td>One global function applied to everyone</td><td><strong>Each user &amp; item gets its own vector</strong> — effectively a different function per user</td></tr>
+      <tr><td>Similarity</td><td>Must be hand-coded as a feature</td><td>Intrinsic — nearby vectors = similar taste (powers "users like you")</td></tr>
+      <tr><td>Sequence / context</td><td>Only via hand-built lag features</td><td>Modeled end-to-end (later models: order, recency, session intent)</td></tr>
+    </tbody></table>
+
+    <p>The cleanest way to say it: regression learns <strong>one set of weights for the whole population</strong> over features you designed; matrix factorization learns <strong>a personalized vector for every single user and item</strong>, and figures out the meaningful dimensions on its own. That's the first real appearance of <em>representation learning</em> in mainstream ML, and it's why a 10-million-user catalog became tractable.</p>
+
+    <div class="callout">
+      <strong>Honest counterpoint.</strong> Recommenders did <em>not</em> kill regression. On dense tabular problems — credit risk, churn, conversion with rich engineered features — gradient-boosted trees still match or beat deep models, train faster, and are far easier to audit (benchmarks: Grinsztajn et al. 2022; Shwartz-Ziv &amp; Armon 2021).<sup><a href="#r12">12</a></sup> Regulated domains need the interpretability. And a well-tuned plain matrix factorization famously beat several fancier neural recommenders (Rendle et al., 2020),<sup><a href="#r13">13</a></sup> a reminder that complexity has to earn its keep. Real production stacks are hybrids: embeddings for the sparse ID signal, boosted trees for the dense engineered features.
+    </div>
+
+    <h2>Stage 3 — Transformers &amp; LLMs</h2>
+
+    <p>The third stage starts with one paper: <strong>"Attention Is All You Need"</strong> (Vaswani et al., 2017).<sup><a href="#r14">14</a></sup> It introduced the <strong>transformer</strong>, built entirely on <strong>self-attention</strong>, and threw away the step-by-step recurrence of RNNs.</p>
+
+    <p>Self-attention is worth understanding intuitively, because it's the same mechanism the attention-based recommenders use. Each token (word) is projected into three vectors:</p>
+    <ul>
+      <li>a <strong>query</strong> — "what am I looking for?"</li>
+      <li>a <strong>key</strong> — "what do I offer?"</li>
+      <li>a <strong>value</strong> — "what do I contribute if I'm relevant?"</li>
+    </ul>
+    <p>Every token's query is compared (dot product) against every other token's key, the scores are softmax-normalized into weights, and each token's new representation becomes a <em>relevance-weighted blend of the whole sequence</em>. Two consequences made this revolutionary: it's <strong>fully parallel</strong> (all positions computed at once, so it trains efficiently on GPUs, unlike sequential RNNs), and it captures <strong>long-range dependencies</strong> directly, where RNNs forget across distance.</p>
+
+    <p>That architecture unlocked the <strong>pretraining revolution</strong>: train a huge model on mountains of unlabeled text with a self-supervised objective (predict the next token, or fill in masked words), then adapt. <strong>BERT</strong> and <strong>GPT-1</strong> (both 2018), <strong>GPT-2</strong> (2019), and then the inflection point — <strong>GPT-3</strong> (Brown et al., 2020, 175B parameters),<sup><a href="#r15">15</a></sup> which could do new tasks from a <em>few examples in the prompt</em>, with no retraining. That's <strong>in-context learning</strong>.</p>
+
+    <p>Why did scale keep working? <strong>Scaling laws</strong> (Kaplan et al., 2020)<sup><a href="#r16">16</a></sup> showed test loss falls as a smooth power law in model size, data, and compute — no saturation in sight. <strong>Chinchilla</strong> (Hoffmann et al., 2022)<sup><a href="#r17">17</a></sup> corrected the recipe (scale data and parameters together, ~20 tokens per parameter). And past certain scales, <strong>emergent abilities</strong> appeared — reasoning, instruction-following — that simply weren't present in smaller models (Wei et al., 2022).<sup><a href="#r18">18</a></sup> Stanford named this whole class <strong>"foundation models"</strong> (2021):<sup><a href="#r19">19</a></sup> train once on broad data, adapt to thousands of tasks.</p>
+
+    <h2>Why transformers surpass recommenders (and where recsys still wins)</h2>
+
+    <p>This is your second comparison. The key insight: transformers/LLMs are more <em>powerful</em> mostly in the sense of <em>general</em>, not because they're better at the narrow ranking job.</p>
+
+    <table>
+      <tbody><tr><th>Dimension</th><th>Recommender systems</th><th>Transformers / LLMs</th></tr>
+      <tr><td>Scope</td><td>Narrow — one model per product surface</td><td><strong>General-purpose foundation model</strong> — one model, thousands of tasks</td></tr>
+      <tr><td>Training signal</td><td>That surface's logged interactions</td><td>Self-supervised on broad web-scale data — "the whole internet is free labels"</td></tr>
+      <tr><td>Context modeled</td><td>A user's recent item history (dozens–hundreds of events)</td><td>Full natural-language context + world knowledge via self-attention</td></tr>
+      <tr><td>New tasks</td><td>Train a new model</td><td><strong>Zero/few-shot from a prompt</strong>, no gradient updates</td></tr>
+      <tr><td>Output</td><td>A score / ranked list over a fixed catalog</td><td><strong>Generative</strong> — language, reasoning, explanations, plans</td></tr>
+      <tr><td>Returns to scale</td><td>Historically plateaued</td><td>Predictable scaling laws + emergent abilities</td></tr>
+    </tbody></table>
+
+    <p>So an LLM can <em>explain</em> a recommendation, reason about <em>why</em> you might like something, handle a brand-new domain it was never trained on, and generate open-ended output. A classical recommender can only score items from a list it already knows. That generality is the leap.</p>
+
+    <div class="callout">
+      <strong>But — and this matters — a vanilla LLM does not win at the core recommendation job.</strong> For retrieving and ranking from catalogs of millions-to-billions of constantly-changing items, under tens-of-milliseconds latency, at millions of requests per second, specialized recommenders still beat a prompted LLM on <strong>latency, throughput, cost, freshness, and usually raw accuracy</strong> on the actual click/conversion target. Running an LLM forward pass per impression in a feed is economically absurd at that scale, and LLMs struggle to ground on item IDs they never saw.
+    </div>
+
+    <p>The real 2024–2026 trajectory is <strong>convergence</strong>, not replacement. Meta's <strong>HSTU / "Actions Speak Louder than Words"</strong> (ICML 2024)<sup><a href="#r20">20</a></sup> recast recommendation as <em>generative sequential transduction</em> and — the headline result — demonstrated LLM-style <strong>scaling laws inside a recommender</strong>, scaling to <strong>1.5-trillion-parameter</strong> generative recommenders (a first for the field) with up to <strong>65.8% NDCG</strong> gains on public data and a <strong>12.4%</strong> online A/B lift deployed to surfaces serving billions of users. Google's <strong>TIGER</strong> (2023)<sup><a href="#r21">21</a></sup> generates semantic item IDs autoregressively. Meanwhile LLMs increasingly wrap <em>around</em> recommenders — generating content embeddings, solving cold-start, understanding intent, writing explanations. The endpoint isn't "LLMs replace recsys"; it's transformer-based <em>recommenders</em> doing the ranking, with LLMs doing the understanding.</p>
+
+    <h2>The throughline</h2>
+
+    <p>Read the three stages as one trend and the pattern — at each step, <strong>the machine takes over more of the work humans used to do by hand</strong>:</p>
+
+    <ul>
+      <li><strong>Stage 1 (regression):</strong> humans hand-craft every feature; the model just weights them.</li>
+      <li><strong>Stage 2 (recommenders):</strong> the model <em>learns its own features</em> (embeddings) for users and items — representation learning arrives, but still one narrow task at a time.</li>
+      <li><strong>Stage 3 (transformers/LLMs):</strong> the model learns <em>general-purpose</em> representations from raw data at scale, and a single model transfers across countless tasks — and even circles back to make recommenders themselves more powerful.</li>
+    </ul>
+
+    <p>Less hand-engineering, more learned representation, more generality. Your three-stage framing captures exactly that progression — and the nuance you sensed about attention is real: recommender systems weren't simply "before transformers." They were one of the first places self-attention proved itself, and they're now where transformer-scale ideas are coming full circle.</p>
+
+    <hr>
+
+    <h2>Sources</h2>
+    <p class="meta" style="margin-bottom:1em;">The three most load-bearing recent claims — <span class="verified">live-verified June 28, 2026</span>: HSTU (ICML 2024) figures, SASRec (ICDM 2018), and DIN (2017/KDD 2018) as the first attention-based recommender. The remaining foundational references are canonical, widely-cited papers cited at their standard arXiv/DOI locations.</p>
+    <ol class="refs">
+      <li id="r1">Nelder &amp; Wedderburn, "Generalized Linear Models," <em>JRSS</em> (1972). <a href="https://www.jstor.org/stable/2344614">jstor.org/stable/2344614</a></li>
+      <li id="r2">Breiman, "Random Forests," <em>Machine Learning</em> (2001). <a href="https://link.springer.com/article/10.1023/A:1010933404324">springer</a></li>
+      <li id="r3">Cortes &amp; Vapnik, "Support-Vector Networks," <em>Machine Learning</em> (1995). <a href="https://link.springer.com/article/10.1007/BF00994018">springer</a></li>
+      <li id="r4">Chen &amp; Guestrin, "XGBoost: A Scalable Tree Boosting System," KDD (2016). <a href="https://arxiv.org/abs/1603.02754">arxiv.org/abs/1603.02754</a></li>
+      <li id="r5">McMahan et al., "Ad Click Prediction: a View from the Trenches," KDD (2013). <a href="https://research.google/pubs/pub41159/">research.google</a></li>
+      <li id="r6">He et al., "Practical Lessons from Predicting Clicks on Ads at Facebook" (2014). <a href="https://research.facebook.com/publications/practical-lessons-from-predicting-clicks-on-ads-at-facebook/">research.facebook.com</a></li>
+      <li id="r7">Resnick et al., "GroupLens: An Open Architecture for Collaborative Filtering of Netnews," CSCW (1994). <a href="https://dl.acm.org/doi/10.1145/192844.192905">dl.acm.org</a></li>
+      <li id="r8">Linden, Smith &amp; York, "Amazon.com Recommendations: Item-to-Item Collaborative Filtering," <em>IEEE Internet Computing</em> (2003). <a href="https://ieeexplore.ieee.org/document/1167344">ieee</a> · Sarwar et al., "Item-Based Collaborative Filtering," WWW (2001). <a href="https://dl.acm.org/doi/10.1145/371920.372071">dl.acm.org</a></li>
+      <li id="r9">Koren, Bell &amp; Volinsky, "Matrix Factorization Techniques for Recommender Systems," <em>IEEE Computer</em> (2009). <a href="https://ieeexplore.ieee.org/document/5197422">ieee</a></li>
+      <li id="r10">Rendle, "Factorization Machines," ICDM (2010). <a href="https://ieeexplore.ieee.org/document/5694074">ieee</a></li>
+      <li id="r11"><span class="verified">[verified]</span> Zhou et al., "Deep Interest Network for CTR Prediction" (2017; KDD 2018) <a href="https://arxiv.org/abs/1706.06978">1706.06978</a>; <span class="verified">[verified]</span> Kang &amp; McAuley, "Self-Attentive Sequential Recommendation (SASRec)," ICDM (2018) <a href="https://arxiv.org/abs/1808.09781">1808.09781</a>; Sun et al., "BERT4Rec," CIKM (2019) <a href="https://arxiv.org/abs/1904.06690">1904.06690</a>; Chen et al., "Behavior Sequence Transformer" (2019) <a href="https://arxiv.org/abs/1905.06874">1905.06874</a>; Cheng et al., "Wide &amp; Deep" (2016) <a href="https://arxiv.org/abs/1606.07792">1606.07792</a>.</li>
+      <li id="r12">Grinsztajn et al., "Why do tree-based models still outperform deep learning on tabular data?" NeurIPS (2022) <a href="https://arxiv.org/abs/2207.08815">2207.08815</a>; Shwartz-Ziv &amp; Armon, "Tabular Data: Deep Learning is Not All You Need" (2021) <a href="https://arxiv.org/abs/2106.03253">2106.03253</a>.</li>
+      <li id="r13">Rendle et al., "Neural Collaborative Filtering vs. Matrix Factorization Revisited," RecSys (2020). <a href="https://arxiv.org/abs/2005.09683">2005.09683</a></li>
+      <li id="r14">Vaswani et al., "Attention Is All You Need," NeurIPS (2017). <a href="https://arxiv.org/abs/1706.03762">1706.03762</a></li>
+      <li id="r15">Brown et al., "Language Models are Few-Shot Learners (GPT-3)" (2020). <a href="https://arxiv.org/abs/2005.14165">2005.14165</a> · Devlin et al., "BERT" (2018) <a href="https://arxiv.org/abs/1810.04805">1810.04805</a></li>
+      <li id="r16">Kaplan et al., "Scaling Laws for Neural Language Models" (2020). <a href="https://arxiv.org/abs/2001.08361">2001.08361</a></li>
+      <li id="r17">Hoffmann et al., "Training Compute-Optimal Large Language Models (Chinchilla)" (2022). <a href="https://arxiv.org/abs/2203.15556">2203.15556</a></li>
+      <li id="r18">Wei et al., "Emergent Abilities of Large Language Models," TMLR (2022). <a href="https://arxiv.org/abs/2206.07682">2206.07682</a></li>
+      <li id="r19">Bommasani et al., "On the Opportunities and Risks of Foundation Models," Stanford CRFM (2021). <a href="https://arxiv.org/abs/2108.07258">2108.07258</a></li>
+      <li id="r20"><span class="verified">[verified]</span> Zhai et al., "Actions Speak Louder than Words: Trillion-Parameter Sequential Transducers for Generative Recommenders (HSTU)," ICML (2024) — confirmed: up to 65.8% NDCG, 5.3×–15.2× faster than FlashAttention2 at 8192-length, 1.5T params, 12.4% online A/B lift. <a href="https://arxiv.org/abs/2402.17152">2402.17152</a></li>
+      <li id="r21">Rajput et al., "Recommender Systems with Generative Retrieval (TIGER)," NeurIPS (2023). <a href="https://arxiv.org/abs/2305.05065">2305.05065</a></li>
+    </ol>
+
+    <footer>Deep-research report compiled June 28, 2026 via a six-stream parallel research fan-out (classic regression · classic recsys · attention in recsys · transformers/LLMs · regression-vs-recsys · recsys-vs-LLM), synthesized into a single narrative. The three highest-stakes recent claims (HSTU, SASRec, DIN) were live-verified against source pages; foundational paper attributions and years are canonical.</footer>
+  </div>
+
+
+
+
+</body></html>
